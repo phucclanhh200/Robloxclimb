@@ -18,7 +18,7 @@ local maps = {
         ground = Vector3.new(14932.4, 3.2, -28.7)
     },
     ["Map 5"] = {
-        cup = Vector3.new(20000, 14402.1, -82.1),
+        cup = Vector3.new(20001.2, 14402.0, -128.3),
         ground = Vector3.new(19942.5, -5.2, -6.6)
     },
     ["Map 6"] = {
