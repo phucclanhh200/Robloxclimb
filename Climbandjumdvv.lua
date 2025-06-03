@@ -10,6 +10,7 @@ local coords = {
     Map5 = { ground = "19952.4,2.7,8.3", nearCup = "19999.9,14402.0,-142.2", cup = "20000.3,14402.0,-137.8" },
     Map6 = { ground = "24931.4,4.0,4.1", nearCup = "24993.0,14406.0,-83.9", cup = "24997.2,14406.1,-85.8" },
     Map7 = { ground = "29945.3,1.6,37.2", nearCup = "29991,14401.5,-131.9", cup = "29996.1,14401.5,-131.5" },
+    Map8 = { ground = "29945.3,1.6,37.2", nearCup = "29987.6,14401.7,-85.6", cup = "29984.9,14408.6,-80.9" },
 }
 
 -- UI Setup
@@ -74,10 +75,10 @@ local credit = Instance.new("TextLabel", frame)
 credit.Position = UDim2.new(0, 10, 0, 10)
 credit.Size = UDim2.new(1, -20, 0, 20)
 credit.BackgroundTransparency = 1
-credit.Text = "𝙎𝙘𝙧𝙞𝙥𝙩 𝙗𝙮 𝙋𝙡𝙣𝙝"
+credit.Text = "Script By Plnh"
 credit.TextColor3 = Color3.fromRGB(150, 150, 150)
 credit.Font = Enum.Font.SourceSansItalic
-credit.TextSize = 14
+credit.TextSize = 19
 credit.TextXAlignment = Enum.TextXAlignment.Right
 
 local dropdown = Instance.new("TextButton", frame)
@@ -105,7 +106,7 @@ delay3Box.PlaceholderText = "Delay về lại đất"
 
 -- Nút toggle
 local toggle = Instance.new("TextButton", frame)
-toggle.Text = "Bắt đầu Auto"
+toggle.Text = "Bắt đầu Ní Ơi"
 toggle.Size = UDim2.new(1, -20, 0, 35)
 toggle.Position = UDim2.new(0, 10, 0, 240)
 toggle.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
@@ -155,7 +156,7 @@ dropdown.MouseButton1Click:Connect(function()
 	menu.BorderSizePixel = 0
 	Instance.new("UICorner", menu).CornerRadius = UDim.new(0, 6)
 
-	for i = 1, 7 do
+	for i = 1, 8 do
 		local name = "Map" .. i
 		local v = coords[name]
 		if v then
@@ -166,7 +167,7 @@ dropdown.MouseButton1Click:Connect(function()
 			b.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
 			b.TextColor3 = Color3.new(1, 1, 1)
 			b.Font = Enum.Font.SourceSans
-			b.TextSize = 16
+			b.TextSize = 17
 			b.MouseButton1Click:Connect(function()
 				groundBox.Text = v.ground
 				nearCupBox.Text = v.nearCup
