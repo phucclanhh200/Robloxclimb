@@ -1,0 +1,67 @@
+-- LocalScript trong StarterPlayerScripts
+
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local placeId = game.PlaceId
+
+-- Danh sách server đã ghé qua
+local visited = {}
+
+-- Tìm server ít người nhất (ưu tiên 0 người trước)
+local function findBestServer()
+	local cursor = ""
+	local bestServer = nil
+	local lowestPlayers = math.huge
+
+	while true do
+		local url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Asc&limit=100&cursor=%s", placeId, cursor)
+		local success, response = pcall(function()
+			return HttpService:JSONDecode(game:HttpGet(url))
+		end)
+
+		if success and response and response.data then
+			for _, server in ipairs(response.data) do
+				local id = server.id
+				local playing = server.playing
+
+				if playing < server.maxPlayers and not visited[id] then
+					if playing == 0 then
+						-- Ưu tiên server trống
+						return id
+					elseif playing < lowestPlayers then
+						lowestPlayers = playing
+						bestServer = id
+					end
+				end
+			end
+
+			if response.nextPageCursor then
+				cursor = response.nextPageCursor
+			else
+				break
+			end
+		else
+			warn("Không thể tải danh sách server.")
+			break
+		end
+	end
+
+	return bestServer
+end
+
+-- Chuyển server
+local function hop()
+	local serverId = findBestServer()
+	if serverId then
+		visited[serverId] = true
+		TeleportService:TeleportToPlaceInstance(placeId, serverId, player)
+	else
+		warn("Không tìm được server phù hợp.")
+	end
+end
+
+-- Gọi để hop
+hop()
