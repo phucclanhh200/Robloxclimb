@@ -1,0 +1,197 @@
+-- (Phс║зn ─Сс║зu giс╗п nguy├кn nh╞░ bс║бn ─С├г viс║┐t...)
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local UIS = game:GetService("UserInputService")
+local VIM = game:GetService("VirtualInputManager")
+
+local clickX, clickY = 538, 89
+local lang = "vi"
+
+local texts = {
+	vi = {
+		title = "ЁЯОг Auto C├вu C├б",
+		bong_on = "ЁЯЯв Auto Bс║еm Bong: Bс║мT",
+		bong_off = "ЁЯЯв Auto Bс║еm Bong: Tс║оT",
+		cast_on = "ЁЯЯв Auto Qu─Гng Cс║зn: Bс║мT",
+		cast_off = "ЁЯЯв Auto Qu─Гng Cс║зn: Tс║оT",
+		lang_title = "ЁЯМР Ng├┤n ngс╗п",
+		toggle_ui = "ЁЯСБ с║иn/Hiс╗Зn UI",
+		lang_vi = "Tiс║┐ng Viс╗Зt",
+		lang_en = "English",
+		lang_hi = "Tiс║┐ng с║дn ─Рс╗Щ"
+	},
+	en = {
+		title = "ЁЯОг Auto Fishing",
+		bong_on = "ЁЯЯв Auto Shake Rod: ON",
+		bong_off = "ЁЯЯв Auto Shake Rod: OFF",
+		cast_on = "ЁЯЯв Auto Cast: ON",
+		cast_off = "ЁЯЯв Auto Cast: OFF",
+		lang_title = "ЁЯМР Language",
+		toggle_ui = "ЁЯСБ Toggle UI",
+		lang_vi = "Vietnamese",
+		lang_en = "English",
+		lang_hi = "Hindi"
+	},
+	hi = {
+		title = "ЁЯОг рдСрдЯреЛ рдордЫрд▓реА рдкрдХрдбрд╝рдирд╛",
+		bong_on = "ЁЯЯв рдЫрдбрд╝реА рд╣рд┐рд▓рд╛рдПрдВ: рдЪрд╛рд▓реВ",
+		bong_off = "ЁЯЯв рдЫрдбрд╝реА рд╣рд┐рд▓рд╛рдПрдВ: рдмрдВрдж",
+		cast_on = "ЁЯЯв рдХрд╛рдВрдЯрд╛ рдлреЗрдВрдХреЛ: рдЪрд╛рд▓реВ",
+		cast_off = "ЁЯЯв рдХрд╛рдВрдЯрд╛ рдлреЗрдВрдХреЛ: рдмрдВрдж",
+		lang_title = "ЁЯМР рднрд╛рд╖рд╛",
+		toggle_ui = "ЁЯСБ UI рджрд┐рдЦрд╛рдПрдВ/рдЫрд┐рдкрд╛рдПрдВ",
+		lang_vi = "рд╡рд┐рдпрддрдирд╛рдореА",
+		lang_en = "рдЕрдВрдЧреНрд░реЗрдЬрд╝реА",
+		lang_hi = "рд╣рд┐рдВрджреА"
+	}
+}
+
+-- UI
+local gui = Instance.new("ScreenGui", CoreGui)
+gui.Name = "FishingUI"
+gui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame", gui)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.Position = UDim2.new(0, 100, 0, 100)
+frame.Size = UDim2.new(0, 200, 0, 190)
+frame.Active = true
+frame.Draggable = true
+
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1, 0, 0, 25)
+title.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+title.TextColor3 = Color3.new(1, 1, 1)
+title.TextSize = 16
+title.Font = Enum.Font.SourceSansBold
+
+local autoBong = Instance.new("TextButton", frame)
+autoBong.Size = UDim2.new(1, -20, 0, 30)
+autoBong.Position = UDim2.new(0, 10, 0, 35)
+autoBong.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+autoBong.TextColor3 = Color3.new(1, 1, 1)
+autoBong.TextSize = 14
+autoBong.Font = Enum.Font.SourceSans
+
+local autoCast = Instance.new("TextButton", frame)
+autoCast.Size = UDim2.new(1, -20, 0, 30)
+autoCast.Position = UDim2.new(0, 10, 0, 70)
+autoCast.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+autoCast.TextColor3 = Color3.new(1, 1, 1)
+autoCast.TextSize = 14
+autoCast.Font = Enum.Font.SourceSans
+
+local langButton = Instance.new("TextButton", frame)
+langButton.Size = UDim2.new(1, -20, 0, 25)
+langButton.Position = UDim2.new(0, 10, 0, 110)
+langButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+langButton.TextColor3 = Color3.new(1, 1, 1)
+langButton.TextSize = 14
+langButton.Font = Enum.Font.SourceSans
+
+-- Dropdown menu
+local langMenu = Instance.new("Frame", frame)
+langMenu.Size = UDim2.new(1, -20, 0, 75)
+langMenu.Position = UDim2.new(0, 10, 0, 135)
+langMenu.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+langMenu.Visible = false
+langMenu.BorderSizePixel = 0
+
+local function createLangOption(id, order)
+	local btn = Instance.new("TextButton", langMenu)
+	btn.Size = UDim2.new(1, 0, 0, 25)
+	btn.Position = UDim2.new(0, 0, 0, (order - 1) * 25)
+	btn.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+	btn.TextColor3 = Color3.new(1, 1, 1)
+	btn.Font = Enum.Font.SourceSans
+	btn.TextSize = 14
+	btn.Text = texts[lang]["lang_"..id]
+	btn.MouseButton1Click:Connect(function()
+		lang = id
+		updateTexts()
+		langMenu.Visible = false
+	end)
+	return btn
+end
+
+createLangOption("vi", 1)
+createLangOption("en", 2)
+createLangOption("hi", 3)
+
+local toggleBtn = Instance.new("TextButton", gui)
+toggleBtn.Size = UDim2.new(0, 120, 0, 30)
+toggleBtn.Position = UDim2.new(0, 10, 0, 10)
+toggleBtn.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+toggleBtn.TextColor3 = Color3.new(1, 1, 1)
+toggleBtn.TextSize = 14
+toggleBtn.Font = Enum.Font.SourceSans
+
+-- Biс║┐n
+local isBong, isCast, isVisible = false, false, true
+local remote = game:GetService("ReplicatedStorage"):WaitForChild("Msg"):WaitForChild("RemoteEvent")
+
+-- Cс║нp nhс║нt UI
+function updateTexts()
+	local t = texts[lang]
+	title.Text = t.title
+	autoBong.Text = isBong and t.bong_on or t.bong_off
+	autoCast.Text = isCast and t.cast_on or t.cast_off
+	langButton.Text = t.lang_title
+	toggleBtn.Text = t.toggle_ui
+
+	for i, child in ipairs(langMenu:GetChildren()) do
+		if child:IsA("TextButton") then
+			local id = child.Name
+			child.Text = texts[lang]["lang_" .. id]
+		end
+	end
+end
+
+-- Auto run
+task.spawn(function()
+	while true do
+		if isBong then
+			pcall(function()
+				remote:FireServer("цСЗцЩГщ▒╝чл┐")
+			end)
+		end
+		wait(0.2)
+	end
+end)
+
+task.spawn(function()
+	while true do
+		if isCast then
+			VIM:SendMouseButtonEvent(clickX, clickY, 0, true, game, 1)
+			wait(0.05)
+			VIM:SendMouseButtonEvent(clickX, clickY, 0, false, game, 1)
+			wait(1.2)
+		end
+		wait(0.2)
+	end
+end)
+
+-- Sс╗▒ kiс╗Зn
+autoBong.MouseButton1Click:Connect(function()
+	isBong = not isBong
+	updateTexts()
+	autoBong.BackgroundColor3 = isBong and Color3.fromRGB(0, 170, 0) or Color3.fromRGB(60, 60, 60)
+end)
+
+autoCast.MouseButton1Click:Connect(function()
+	isCast = not isCast
+	updateTexts()
+	autoCast.BackgroundColor3 = isCast and Color3.fromRGB(0, 170, 0) or Color3.fromRGB(60, 60, 60)
+end)
+
+langButton.MouseButton1Click:Connect(function()
+	langMenu.Visible = not langMenu.Visible
+end)
+
+toggleBtn.MouseButton1Click:Connect(function()
+	isVisible = not isVisible
+	frame.Visible = isVisible
+end)
+
+updateTexts()
