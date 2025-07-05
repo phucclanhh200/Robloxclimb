@@ -10,7 +10,7 @@ local lang = "vi"
 
 local texts = {
 	vi = {
-		title = "🎣 Auto Câu Cá",
+		title = "🎣 Auto Câu Cá py plnh",
 		bong_on = "🟢 Auto Bấm Bong: BẬT",
 		bong_off = "🟢 Auto Bấm Bong: TẮT",
 		cast_on = "🟢 Auto Quăng Cần: BẬT",
@@ -22,7 +22,7 @@ local texts = {
 		lang_hi = "Tiếng Ấn Độ"
 	},
 	en = {
-		title = "🎣 Auto Fishing",
+		title = "🎣 Auto Fishing py plnh",
 		bong_on = "🟢 Auto Shake Rod: ON",
 		bong_off = "🟢 Auto Shake Rod: OFF",
 		cast_on = "🟢 Auto Cast: ON",
@@ -34,7 +34,7 @@ local texts = {
 		lang_hi = "Hindi"
 	},
 	hi = {
-		title = "🎣 ऑटो मछली पकड़ना",
+		title = "🎣 ऑटो मछली पकड़ना py plnh",
 		bong_on = "🟢 छड़ी हिलाएं: चालू",
 		bong_off = "🟢 छड़ी हिलाएं: बंद",
 		cast_on = "🟢 कांटा फेंको: चालू",
