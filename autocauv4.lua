@@ -1,4 +1,4 @@
--- (Phс║зn ─Сс║зu giс╗п nguy├кn nh╞░ bс║бn ─С├г viс║┐t...)
+-- (Phần đầu giữ nguyên như bạn đã viết...)
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -10,40 +10,40 @@ local lang = "vi"
 
 local texts = {
 	vi = {
-		title = "ЁЯОг Auto C├вu C├б",
-		bong_on = "ЁЯЯв Auto Bс║еm Bong: Bс║мT",
-		bong_off = "ЁЯЯв Auto Bс║еm Bong: Tс║оT",
-		cast_on = "ЁЯЯв Auto Qu─Гng Cс║зn: Bс║мT",
-		cast_off = "ЁЯЯв Auto Qu─Гng Cс║зn: Tс║оT",
-		lang_title = "ЁЯМР Ng├┤n ngс╗п",
-		toggle_ui = "ЁЯСБ с║иn/Hiс╗Зn UI",
-		lang_vi = "Tiс║┐ng Viс╗Зt",
+		title = "🎣 Auto Câu Cá",
+		bong_on = "🟢 Auto Bấm Bong: BẬT",
+		bong_off = "🟢 Auto Bấm Bong: TẮT",
+		cast_on = "🟢 Auto Quăng Cần: BẬT",
+		cast_off = "🟢 Auto Quăng Cần: TẮT",
+		lang_title = "🌐 Ngôn ngữ",
+		toggle_ui = "👁 Ẩn/Hiện UI",
+		lang_vi = "Tiếng Việt",
 		lang_en = "English",
-		lang_hi = "Tiс║┐ng с║дn ─Рс╗Щ"
+		lang_hi = "Tiếng Ấn Độ"
 	},
 	en = {
-		title = "ЁЯОг Auto Fishing",
-		bong_on = "ЁЯЯв Auto Shake Rod: ON",
-		bong_off = "ЁЯЯв Auto Shake Rod: OFF",
-		cast_on = "ЁЯЯв Auto Cast: ON",
-		cast_off = "ЁЯЯв Auto Cast: OFF",
-		lang_title = "ЁЯМР Language",
-		toggle_ui = "ЁЯСБ Toggle UI",
+		title = "🎣 Auto Fishing",
+		bong_on = "🟢 Auto Shake Rod: ON",
+		bong_off = "🟢 Auto Shake Rod: OFF",
+		cast_on = "🟢 Auto Cast: ON",
+		cast_off = "🟢 Auto Cast: OFF",
+		lang_title = "🌐 Language",
+		toggle_ui = "👁 Toggle UI",
 		lang_vi = "Vietnamese",
 		lang_en = "English",
 		lang_hi = "Hindi"
 	},
 	hi = {
-		title = "ЁЯОг рдСрдЯреЛ рдордЫрд▓реА рдкрдХрдбрд╝рдирд╛",
-		bong_on = "ЁЯЯв рдЫрдбрд╝реА рд╣рд┐рд▓рд╛рдПрдВ: рдЪрд╛рд▓реВ",
-		bong_off = "ЁЯЯв рдЫрдбрд╝реА рд╣рд┐рд▓рд╛рдПрдВ: рдмрдВрдж",
-		cast_on = "ЁЯЯв рдХрд╛рдВрдЯрд╛ рдлреЗрдВрдХреЛ: рдЪрд╛рд▓реВ",
-		cast_off = "ЁЯЯв рдХрд╛рдВрдЯрд╛ рдлреЗрдВрдХреЛ: рдмрдВрдж",
-		lang_title = "ЁЯМР рднрд╛рд╖рд╛",
-		toggle_ui = "ЁЯСБ UI рджрд┐рдЦрд╛рдПрдВ/рдЫрд┐рдкрд╛рдПрдВ",
-		lang_vi = "рд╡рд┐рдпрддрдирд╛рдореА",
-		lang_en = "рдЕрдВрдЧреНрд░реЗрдЬрд╝реА",
-		lang_hi = "рд╣рд┐рдВрджреА"
+		title = "🎣 ऑटो मछली पकड़ना",
+		bong_on = "🟢 छड़ी हिलाएं: चालू",
+		bong_off = "🟢 छड़ी हिलाएं: बंद",
+		cast_on = "🟢 कांटा फेंको: चालू",
+		cast_off = "🟢 कांटा फेंको: बंद",
+		lang_title = "🌐 भाषा",
+		toggle_ui = "👁 UI दिखाएं/छिपाएं",
+		lang_vi = "वियतनामी",
+		lang_en = "अंग्रेज़ी",
+		lang_hi = "हिंदी"
 	}
 }
 
@@ -127,11 +127,11 @@ toggleBtn.TextColor3 = Color3.new(1, 1, 1)
 toggleBtn.TextSize = 14
 toggleBtn.Font = Enum.Font.SourceSans
 
--- Biс║┐n
+-- Biến
 local isBong, isCast, isVisible = false, false, true
 local remote = game:GetService("ReplicatedStorage"):WaitForChild("Msg"):WaitForChild("RemoteEvent")
 
--- Cс║нp nhс║нt UI
+-- Cập nhật UI
 function updateTexts()
 	local t = texts[lang]
 	title.Text = t.title
@@ -153,7 +153,7 @@ task.spawn(function()
 	while true do
 		if isBong then
 			pcall(function()
-				remote:FireServer("цСЗцЩГщ▒╝чл┐")
+				remote:FireServer("摇晃鱼竿")
 			end)
 		end
 		wait(0.2)
@@ -172,7 +172,7 @@ task.spawn(function()
 	end
 end)
 
--- Sс╗▒ kiс╗Зn
+-- Sự kiện
 autoBong.MouseButton1Click:Connect(function()
 	isBong = not isBong
 	updateTexts()
